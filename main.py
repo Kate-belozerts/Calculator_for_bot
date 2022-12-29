@@ -22,70 +22,43 @@ def answer(msg: types.Message):
 
 def start(message):
     operation = message.text
-#operation = input('Введите арифметическое выражение: \n\
-#(Возведение в степень укажите как "^", а корень словом "root")\n')
     Logger.logger(operation, 'entered data is')
     if 'j' in operation:
         operation = Complex.to_complex(operation)
-        bot.send_message(chat_id=message.from_user.id, text=f'{operation}')
-        # return operation
+        bot.reply_to(message, text=f'{operation}')
 
     elif '+' in operation:
         operation = Arithmetic.addition(operation)
-        bot.send_message(chat_id=message.from_user.id, text=f'{operation}')
-        # return operation
+        bot.reply_to(message, text=f'{operation}')
 
     elif '-' in operation:
         operation = Arithmetic.subtract(operation)
-        bot.send_message(chat_id=message.from_user.id, text=f'{operation}')
-        # return Arithmetic.subtract(operation)
+        bot.reply_to(message, text=f'{operation}')
 
     elif '*' in operation:
         operation = Arithmetic.multiply(operation)
-        bot.send_message(chat_id=message.from_user.id, text=f'{operation}')
-        # return Arithmetic.multiply(operation)
+        bot.reply_to(message, text=f'{operation}')
 
     elif '/' in operation:
         operation = Arithmetic.division(operation)
-        bot.send_message(chat_id=message.from_user.id, text=f'{operation}')
-        # return Arithmetic.division(operation)
+        bot.reply_to(message, text=f'{operation}')
 
     elif '^' in operation:
         operation = Arithmetic.exponent(operation)
-        bot.send_message(chat_id=message.from_user.id, text=f'{operation}')
-        # return Arithmetic.exponent(operation)
+        bot.reply_to(message, text=f'{operation}')
 
     elif 'root' in operation:
         operation = Arithmetic.root(operation)
-        bot.send_message(chat_id=message.from_user.id, text=f'{operation}')
+        bot.reply_to(message, text=f'{operation}')
+        # bot.send_message(chat_id=message.from_user.id, text=f'{operation}')
         # return Arithmetic.root(operation)
-    to_continue(message)
+    repeat(message)
 
 
-def to_continue(message):
-    keyboard = types.InlineKeyboardMarkup()
-    key_yes = types.InlineKeyboardButton(text='Да', callback_data='yes')
-    keyboard.add(key_yes)
-    key_no = types.InlineKeyboardButton(text='Нет', callback_data='no')
-    keyboard.add(key_no)
-    question = 'Хотите ввести еще одно выражение?'
-    bot.send_message(message.from_user.id, text=question, reply_markup=keyboard)
-
-    @bot.callback_query_handler(func=lambda call: call.data == 'yes')
-    def call_back(call):
-        bot.send_message(chat_id=call.from_user.id, text='Хорошо, давайте продолжим?')
-
-        @bot.message_handler(content_types=['text'])
-        def get_text_messages(msg):
-            bot.send_message(chat_id=msg.from_user.id, text='Нужно ввести арифметическое выражение: \n\
-(Возведение в степень укажите как "^", а корень словом "root")\n')
-            bot.register_next_step_handler(msg, start)
-
-    @bot.callback_query_handler(func=lambda call: call.data == 'no')
-    def call_back(call):
-        bot.send_message(chat_id=call.from_user.id, text=f'Хорошо, закончим на сегодня. До свидания!)')
+@bot.message_handler()
+def repeat(msg: types.Message):
+    bot.register_next_step_handler(msg, start)
 
 
 # print(start())
-# start()
 bot.polling()
