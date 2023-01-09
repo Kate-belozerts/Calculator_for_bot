@@ -20,6 +20,14 @@ def answer(msg: types.Message):
     bot.register_next_step_handler(msg, start)
 
 
+@bot.message_handler(commands=['logger'])
+def answer(msg: types.Message):
+    bot.send_message(chat_id=msg.from_user.id, text='Файл логгирования')
+    with open('log.csv', 'rb') as f:
+        bot.send_document(msg.from_user.id, f)
+    bot.register_next_step_handler(msg, start)
+
+
 def start(message):
     operation = message.text
     Logger.logger(operation, 'entered data is')

@@ -151,3 +151,12 @@
 2023-01-06 20:34:50.427329 - entered data is: 7+7
 2023-01-06 20:34:50.434286 - result of addition: 14
 2023-01-06 20:34:57.598973 - entered data is: 7+7/3
+2023-01-09 21:43:11.335394 - entered data is: 6+4
+2023-01-09 21:43:11.338410 - result of addition: 10
+2023-01-09 21:43:16.644255 - entered data is: /Log
+2023-01-09 21:44:42.616817 - entered data is: 6+1
+2023-01-09 21:44:42.618711 - result of addition: 7
+2023-01-09 21:44:48.009634 - entered data is: /logger
+2023-01-09 21:46:08.327259 - entered data is: 8-9
+2023-01-09 21:46:08.328309 - result of subtract: -1
+2023-01-09 21:46:11.084437 - entered data is: /logger
